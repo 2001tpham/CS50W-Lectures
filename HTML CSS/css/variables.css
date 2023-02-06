@@ -1,0 +1,12 @@
+div {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+div ul {
+  color: blue;
+}
+div ul ol {
+  color: purple;
+}
+div ol {
+  color: blue;
+}/*# sourceMappingURL=variables.css.map */

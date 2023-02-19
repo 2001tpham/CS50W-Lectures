@@ -1,0 +1,21 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    Edit This Page
+{% endblock %}
+
+{% block body %}
+    <h1>Edit This Page</h1>
+
+    <form action="{% url 'encyclopedia:edit_submit' %}" method='POST'>
+        {% csrf_token %}
+        <label>Title: </label>
+        <input type="text" name="edited_title" value='{{ original_title }}'>
+
+        <label for='markdown'>Markdown Page Content: </label>
+        <textarea name="edited_md" id="markdown" cols="30" rows="10">{{ original_md }}</textarea>
+
+        <input type="submit" value='Create Your Page'>
+    </form>
+{% endblock  %}
+

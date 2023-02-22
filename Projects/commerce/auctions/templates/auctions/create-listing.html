@@ -1,0 +1,48 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+<h2>Create a Listing</h2>
+
+<form action="{% url 'create-listing' %}" method='POST'>
+    {% csrf_token %}
+    {% comment %} Listing Name {% endcomment %}
+    <div class'form-group'>
+        <label for="listing-name">Listing Name</label>
+        <input type="text" class='form-control' id='listing-name' placeholder='Enter a Listing Name' name='listing_name'>
+    </div>
+
+    {% comment %} Price {% endcomment %}
+    <div class'form-group'>
+        <label for="listing-price">Price</label>
+        <input type="number" class='form-control' id='listing-price' placeholder='Enter a Price' name='listing_price'>
+    </div>
+
+    {% comment %} Description {% endcomment %}
+    <div class'form-group'>
+        <label for="listing-description">Description</label>
+        <input type="text" class='form-control' id='listing-description' placeholder='Enter a Description' name='listing_description'>
+    </div>
+    
+    {% comment %} Category {% endcomment %}
+    <div class'form-group'>
+        <label for="listing-category">Category</label>
+        <select name="listing_category">
+            {% for category in all_categories %}
+            <option value='{{ category.id }}'>{{ category }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    {% comment %} Image {% endcomment %}
+    <div class'form-group'>
+        <label for="listing-image">Image URL</label>
+        <input type="text" class='form-control' id='listing-image' placeholder='Enter an Image URL' name='listing_image'>
+    </div>
+
+    <input type="submit" value='Create Listing'>
+
+</form>
+
+{% endblock body %}
+

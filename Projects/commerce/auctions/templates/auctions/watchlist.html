@@ -1,0 +1,18 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+{% for listing in watchlist_listings %}
+        <div class='card mb-3'>
+            <img src="{{ listing.image}}" alt="{{ listing.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.name }}</h5>
+                <p class="card-text">{{ listing.description }}</p>
+                <p class="card-text"><small class="text-muted">This will be when the listing was created TODO</small></p>
+                <a href="{% url 'listing' listingid=listing.id %}">Check it out</a>
+            </div>
+        </div>
+{% endfor %}
+
+{% endblock body %}
+

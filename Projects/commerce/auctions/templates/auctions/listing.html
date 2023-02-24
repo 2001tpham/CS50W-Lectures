@@ -1,0 +1,88 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div>
+        {% if user.is_authenticated %}
+            {% if is_listing_watchlist %}
+                <form action="{% url 'remove_watchlist_item' listingid=listing.id %}">
+                    {% csrf_token %}
+                    <button type='submit'>Remove From Watchlist</button>
+                </form>
+            {% else %}
+                <form action="{% url 'add_watchlist_item' listingid=listing.id %}">
+                    {% csrf_token %}
+                    <button type='submit'>Add to Watchlist</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+
+
+    <h1>Listing {{ listing.name }}</h1>
+
+    <br>
+
+    <div>
+    <img src="{{ listing.image }}" alt="{{ listing.name }}" max-width='200px'>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        <p>{{ listing.description }}</p>
+    </div>
+
+    <div>
+        {% if is_bid %}
+            <h5>{{ bid_message }}</h5>
+
+        {% else %}
+            <h5>{{ bid_message }}</h5>
+        {% endif %}
+        {% if your_bid %}
+        <h6>Your bid is the current bid</h6>
+        
+        {% endif %}
+    </div>
+
+
+    <div>
+        <h2>${{ listing.price.bid | floatformat:2 }}</h2> 
+    </div>
+
+    
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'add_bid' listingid=listing.id %}" method='POST'>
+        {% csrf_token %}
+        <input type="number" name='bid_price' placeholder='Make a bid'>
+        <button type='submit'>Bid</button>
+    </form>
+    
+    {% endif %}
+
+    <br>
+    <br>
+
+    <div>
+        <h2>Comments</h2>
+
+        {% if user.is_authenticated %}
+            <form action="{% url 'addComment' listingid=listing.id%}" method='POST'>
+                {% csrf_token %}
+                <input type="text" name='comment' placeholder='Leave a comment'>
+                <button type='submit'>Comment</button>
+            </form>
+        {% endif %}
+
+        {% for comment in listing_comments %}
+            <div>
+                <h6>{{ comment.user }}</h6>
+                <p>{{ comment.comment}}</p>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock body %}
+

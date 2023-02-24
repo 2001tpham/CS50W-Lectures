@@ -4,7 +4,34 @@
     <h2>Active Listings</h2>
 
     
+    {% comment %} Category filter {% endcomment %}
+
+    <form action="{% url 'filter' %}" method="POST">
+        {% csrf_token %}
+        <label>Category</label>
+        <select name="category">
+            {% for category in all_categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value='Choose'>
+    </form>
+
     <!-- Active listings list -->
+        {% for listing in active_listings %}
+        <div class='card mb-3'>
+            <div>
+                <img src="{{ listing.image}}" alt="{{ listing.name }}" max-width='200px'>
+
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.name }}</h5>
+                <p class="card-text">{{ listing.description }}</p>
+                <p class="card-text"><small class="text-muted">This will be when the listing was created TODO</small></p>
+                <a href="{% url 'listing' listingid=listing.id %}">Check it out</a>
+            </div>
+        </div>
+        {% endfor %}
     
 
 {% endblock %}
